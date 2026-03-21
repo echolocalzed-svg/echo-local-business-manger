@@ -1,0 +1,262 @@
+/* css/style.css - Professional Dark Navy Theme with Glassmorphism */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0a192f 0%, #1e3a8a 50%, #1e40af 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #e2e8f0;
+}
+
+header h1 {
+  text-align: center;
+  color: #f8fafc;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 30px;
+}
+
+.section {
+  display: none;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 35px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.card h2 {
+  margin-bottom: 30px;
+  color: #60a5fa;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+label {
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+input, textarea, select {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  font-size: 1rem;
+  color: #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #94a3b8;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+}
+
+/* Buttons */
+button {
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 56px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+/* Dashboard Cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+.dashboard-card:active {
+  transform: translateY(-4px);
+}
+
+.back-btn {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  width: 220px;
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 15px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th {
+  background: rgba(96, 165, 250, 0.2);
+  color: #e2e8f0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+/* Status Badges */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status.paid, .status.completed, .status.online, .status.income { 
+  background: rgba(34, 197, 94, 0.3); 
+  color: #22c55e; 
+  border: 1px solid rgba(34, 197, 94, 0.5);
+}
+
+.status.pending, .status.unpaid, .status.expense, .status.offline { 
+  background: rgba(245, 158, 11, 0.3); 
+  color: #f59e0b; 
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+/* Summary Cards */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary p {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.summary .positive { color: #22c55e; }
+.summary .negative { color: #ef4444; }
+
+/* Error */
+.error {
+  color: #f87171;
+  text-align: center;
+  font-weight: 500;
+  background: rgba(248, 113, 113, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Connection Status */
+#backup-status {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  body { padding: 15px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .card { padding: 25px; }
+  header h1 { font-size: 1.8rem; }
+  table { font-size: 0.9rem; }
+  th, td { padding: 12px 8px; }
+}
+
+@media (max-width: 480px) {
+  input, button { font-size: 16px; }
+  .summary { grid-template-columns: 1fr; }
+}
+

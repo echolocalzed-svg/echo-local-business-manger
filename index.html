@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Local Business Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+</xai:function_call}
+
+
+<xai:function_call name="edit_file">
+<parameter name="path">index.html
+</head>
+<body>
+    <header>
+        <h1>Echo Local Business Manager</h1>
+    </header>
+
+    <!-- Login Section -->
+    <section id="login-section" class="section active">
+        <div class="card">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p id="login-error" class="error hidden"></p>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="section hidden">
+        <div class="card">
+            <h2>Dashboard</h2>
+            <div class="nav-buttons">
+                <button onclick="showSection('clients')">Clients / Customers</button>
+                <button onclick="showSection('repairs')">Phone Repairs</button>
+                <button onclick="showSection('opportunities')">Opportunities</button>
+                <button onclick="showSection('money')">Money Manager / Expenses</button>
+                <button onclick="exportAllData()">📥 Export Data</button>
+                <button onclick="document.getElementById('import-file').click()">📤 Import Data</button>
+            <div id="backup-status" style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border-radius: 8px;">
+                <span id="connection-status" class="status paid">🟢 Loading...</span>
+                <span id="last-backup" style="margin-left: 15px; font-size: 0.9rem; color: #666;"></span>
+            </div>
+            <button onclick="syncAll()" id="sync-btn">☁️ Auto-Sync</button>
+                <input type="file" id="import-file" style="display:none" accept=".json" onchange="uploadData(event)">
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients-section" class="section hidden">
+        <div class="card">
+            <h2>Clients / Customers</h2>
+            <button onclick="showSection('dashboard')" class="back-btn">← Back to Dashboard</button>
+            <form id="client-form">
+                <input type="text" id="client-name" placeholder="Name" required>
+                <input type="tel" id="client-contact" placeholder="Contact">
+                <input type="text" id="client-biztype" placeholder="Business Type">
+                <textarea id="client-notes" placeholder="Notes"></textarea>
+                <select id="client-status" required>
+                    <option value="">Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Unpaid</option>
+                </select>
+                <button type="submit">Add Client</button>
+            </form>
+            <table id="clients-table">
+                <thead>
+                    <tr><th>Name</th><th>Contact</th><th>Business Type</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Repairs Section -->
+    <section id="repairs-section" class="section hidden">
+        <div class="card">
+            <h2>Phone Repairs</h2>
+            <button onclick="showSection('dashboard')" class="back-btn">← Back to Dashboard</button>
+            <form id="repair-form">
+                <input type="text" id="repair-phonetype" placeholder="Phone Type" required>
+                <input type="text" id="repair-issue" placeholder="Issue" required>
+                <input type="number" id="repair-cost" placeholder="Cost" required>
+                <select id="repair-paystatus" required>
+                    <option value="">Payment Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                </select>
+                <input type="date" id="repair-date" required>
+                <button type="submit">Add Repair</button>
+            </form>
+            <table id="repairs-table">
+                <thead>
+                    <tr><th>Phone Type</th><th>Issue</th><th>Cost</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="opportunities-section" class="section hidden">
+        <div class="card">
+            <h2>Opportunities / Potential Clients</h2>
+            <button onclick="showSection('dashboard')" class="back-btn">← Back to Dashboard</button>
+            <form id="opportunity-form">
+                <input type="text" id="opp-bizname" placeholder="Business Name" required>
+                <input type="text" id="opp-contact" placeholder="Contact Info">
+                <select id="opp-status" required>
+                    <option value="">Status</option>
+                    <option value="not-contacted">Not Contacted</option>
+                    <option value="demo-sent">Demo Sent</option>
+                    <option value="interested">Interested</option>
+                </select>
+                <button type="submit">Add Opportunity</button>
+            </form>
+            <table id="opportunities-table">
+                <thead>
+                    <tr><th>Business Name</th><th>Contact</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Money Section -->
+    <section id="money-section" class="section hidden">
+        <div class="card">
+            <h2>Money Manager / Expenses</h2>
+            <button onclick="showSection('dashboard')" class="back-btn">← Back to Dashboard</button>
+            <div class="summary">
+                <p>Total Balance: $<span id="total-balance">0</span></p>
+                <p>Daily Income: $<span id="daily-income">0</span></p>
+                <p>Daily Expenses: $<span id="daily-expenses">0</span></p>
+            </div>
+            <form id="money-form">
+                <select id="money-type" required>
+                    <option value="">Income or Expense</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+                <input type="text" id="money-desc" placeholder="Description" required>
+                <input type="number" id="money-amount" placeholder="Amount" required>
+                <input type="date" id="money-date" required>
+                <button type="submit">Add Entry</button>
+            </form>
+            <table id="money-table">
+                <thead>
+                    <tr><th>Type</th><th>Description</th><th>Amount</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Firebase & App Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
